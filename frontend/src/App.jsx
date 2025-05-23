@@ -4,7 +4,7 @@ import About from "./pages/About";
 
 function App() {
   return (
-    <Router>
+    <Router basename="/sanity-react-cms-app">
       {/* Menyrad */}
       <nav style={{ padding: "1rem", backgroundColor: "#f0f0f0" }}>
         <Link to="/" style={{ marginRight: "1rem", textDecoration: "none" }}>Startsida</Link>
