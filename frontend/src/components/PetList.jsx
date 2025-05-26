@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
 import { client } from '../sanity/client'
 import "../style/galleri.css"
+import kattohund from '../assets/kattohund.png'
 
-// Komponent som visar alla husdjur från Sanity
+// Komponent som hämtar alla husdjur från Sanity
 const query = `*[_type == "pet"]{
   _id,
   name,
@@ -18,26 +19,42 @@ const query = `*[_type == "pet"]{
 export default function PetList() {
   const [pets, setPets] = useState([])
 
-  // useEffect körs när komponenten laddas
   useEffect(() => {
     client.fetch(query).then((data) => setPets(data))
   }, [])
 
-  // Returnerar all information om varje husdjur
   return (
-    <section>
-      <h2>Alla husdjur</h2>
-      {pets.map((pet) => (
-        <div key={pet._id} style={{ border: '1px solid #ccc', padding: '1rem', marginBottom: '1rem' }}>
-          <h3>{pet.name} ({pet.species})</h3>
-          {pet.imageUrl && <img src={pet.imageUrl} alt={pet.name} style={{ width: '200px', height: 'auto' }} />}
-          <p><strong>Beskrivning:</strong> {pet.description}</p>
-          <p><strong>Bor med:</strong> {pet.livesWith}</p>
-          <p><strong>Personlighet:</strong> {pet.personality?.join(', ')}</p>
-          <p><strong>Favoritsysslor:</strong> {pet.hobbies?.join(', ')}</p>
-          <p><strong>Talang:</strong> {pet.talent}</p>
+    <>
+      <header className="pets-header">
+        <h1>
+          Husdjurs <img src={kattohund} alt="katt och hund bild" /> Galleri
+        </h1> 
+        <nav className="nav-links">
+          <a href="/home">Hem</a>
+          <a href="/sanity-react-cms-app/lagg-till">Lägg till husdjur</a>
+          <a href="/sanity-react-cms-app/om-oss">Om oss</a>
+        </nav>
+      </header>
+      <section className="pets-container">
+        <h2>Alla husdjur</h2>
+        <div className="pets-grid">
+          {pets.map((pet) => (
+            <div key={pet._id} className="pet-card">
+              {pet.imageUrl && (
+                <img src={pet.imageUrl} alt={pet.name} className="pet-image" />
+              )}
+              <div className="pet-info">
+                <h3>{pet.name} ({pet.species})</h3>
+                <p><strong>Beskrivning:</strong> {pet.description}</p>
+                <p><strong>Bor med:</strong> {pet.livesWith}</p>
+                <p><strong>Personlighet:</strong> {pet.personality?.join(', ')}</p>
+                <p><strong>Favoritsysslor:</strong> {pet.hobbies?.join(', ')}</p>
+                <p><strong>Talang:</strong> {pet.talent}</p>
+              </div>
+            </div>
+          ))}
         </div>
-      ))}
-    </section>
+      </section>
+    </>
   )
 }
