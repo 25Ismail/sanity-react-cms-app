@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import PetList from "./components/PetList";
-import About from "./pages/About";
+import About from "./components/About";
+import PetForm from "./components/petForm"; // justera om du lägger i pages
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Routes>
         <Route path="/" element={<PetList />} />
         <Route path="/om-oss" element={<About />} />
+        <Route path="/lagg-till" element={<PetForm />} />
       </Routes>
     </Router>
   );

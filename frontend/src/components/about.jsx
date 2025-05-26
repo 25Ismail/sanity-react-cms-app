@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { client } from "../client"; // sanityClient (du har säkert en client.js redan)
+import { client } from '../sanity/client'
 
 const About = () => {
   const [aboutData, setAboutData] = useState(null);

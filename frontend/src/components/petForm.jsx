@@ -2,7 +2,7 @@
 import { useState } from 'react'
 
 // Importerar Sanity-klienten – används för att skicka data till Sanity
-import client from '../sanityClient' // justera sökvägen till din klient
+import { client } from '../sanity/client'
 
 // Komponent för formuläret
 export default function PetForm() {
