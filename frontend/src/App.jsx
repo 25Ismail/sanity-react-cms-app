@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import PetList from "./components/PetList";
-import About from "./components/About";
+import About from "./components/about";
 import PetForm from "./components/petForm"; // justera om du lägger i pages
 
 function App() {
@@ -10,6 +10,7 @@ function App() {
       <nav style={{ padding: "1rem", backgroundColor: "#f0f0f0" }}>
         <Link to="/" style={{ marginRight: "1rem", textDecoration: "none" }}>Startsida</Link>
         <Link to="/om-oss" style={{ textDecoration: "none" }}>Om oss</Link>
+        <Link to="/lagg-till" style={{ marginLeft: "1rem", textDecoration: "none" }}>Lägg till husdjur</Link>
       </nav>
 
       {/* Sidor */}
