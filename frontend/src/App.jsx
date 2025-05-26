@@ -7,11 +7,11 @@ function App() {
   return (
     <Router basename="/sanity-react-cms-app">
       {/* Menyrad */}
-      <nav style={{ padding: "1rem", backgroundColor: "#f0f0f0" }}>
+      {/* <nav style={{ padding: "1rem", backgroundColor: "#f0f0f0" }}>
         <Link to="/" style={{ marginRight: "1rem", textDecoration: "none" }}>Startsida</Link>
         <Link to="/om-oss" style={{ textDecoration: "none" }}>Om oss</Link>
         <Link to="/lagg-till" style={{ marginLeft: "1rem", textDecoration: "none" }}>Lägg till husdjur</Link>
-      </nav>
+      </nav> */}
 
       {/* Sidor */}
       <Routes>
