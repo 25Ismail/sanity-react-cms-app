@@ -1,19 +1,23 @@
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import PetList from "./components/PetList";
 import About from "./components/about";
-import PetForm from "./components/petForm"; // justera om du lägger i pages
+import PetForm from "./components/petForm";
+import kattohund from "./assets/kattohund.png";
 
 function App() {
   return (
     <Router basename="/sanity-react-cms-app">
-      {/* Menyrad */}
-      {/* <nav style={{ padding: "1rem", backgroundColor: "#f0f0f0" }}>
-        <Link to="/" style={{ marginRight: "1rem", textDecoration: "none" }}>Startsida</Link>
-        <Link to="/om-oss" style={{ textDecoration: "none" }}>Om oss</Link>
-        <Link to="/lagg-till" style={{ marginLeft: "1rem", textDecoration: "none" }}>Lägg till husdjur</Link>
-      </nav> */}
+      <header className="pets-header">
+        <h1>
+          Husdjurs <img src={kattohund} alt="katt och hund bild" /> Galleri
+        </h1>
+        <nav className="nav-links">
+          <Link to="/">Hem</Link>
+          <Link to="/lagg-till">Lägg till husdjur</Link>
+          <Link to="/om-oss">Om oss</Link>
+        </nav>
+      </header>
 
-      {/* Sidor */}
       <Routes>
         <Route path="/" element={<PetList />} />
         <Route path="/om-oss" element={<About />} />
