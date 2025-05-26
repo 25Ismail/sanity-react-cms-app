@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { client } from '../sanity/client'
+import "../style/galleri.css"
 
 // Komponent som visar alla husdjur från Sanity
 const query = `*[_type == "pet"]{
