@@ -1,42 +1,57 @@
-## Projekt: Husdjursgalleri
+# Husdjursgalleri
 
-Husdjursgalleri är en webbapplikation byggd med React och Sanity (Headless CMS). Applikationen presenterar ett galleri över olika husdjur där användare kan se, läsa om och lägga till nya djur.
+**Husdjursgalleri** är en webbapplikation byggd med **React** och **Sanity** (Headless CMS). Applikationen visar ett galleri över husdjur där användare kan läsa om, och lägga till egna djur via ett formulär.
 
-## Installation och körning
+---
 
-För att köra projektet lokalt krävs Node.js och npm installerat.
+## 🚀 Teknisk översikt
+
+- **Frontend:** React + React Router
+- **CMS (backend):** Sanity (v3)
+- **Stil:** CSS
+- **Routing:** `react-router-dom`
+- **Testning:** Vitest (enhetstester) & Cypress (end-to-end)
+
+---
+
+## 📦 Installation & körning
 
 ### 1. Klona projektet
 
 ```bash
 git clone https://github.com/25Ismail/sanity-react-cms-app.git
+cd sanity-react-cms-app
 ```
+
+### 2. Installera frontend och starta Vite
+
 ```bash
-cd santiy-react-cms-app/frontend
-```
-```bash
+cd frontend
 npm install
-```
-```bash
 npm run dev
 ```
 
-## För att köra enhetstester med Vitest:
+Frontend körs på: `http://localhost:5174/sanity-react-cms-app/`
 
-```bash
-npm run test
-```
-Om ni även kör Sanity-studion lokalt, gå in i CMS-mappen och starta den:
+### 3. Installera och starta Sanity CMS
 
 ```bash
 cd ../husdjursgalleri
-sanity dev
+npm install
+npx sanity dev
 ```
+
+Sanity-studion körs på: `http://localhost:3333`
+Om du behöver bygga för produktion:
+
+```bash
+npx sanity build
+npx sanity start
+```
+
 ---
 
-## React-struktur
-
-Projektet är uppbyggt i React med `react-router-dom` för routing. Applikationen består av flera sidokomponenter: `PetList`, `PetForm` och `About`. Routing mellan sidorna sker utan omladdning av sidan via följande struktur i `App.jsx`:
+## 🧭 React-struktur och routing
 
 ```jsx
 <Routes>
@@ -45,32 +60,118 @@ Projektet är uppbyggt i React med `react-router-dom` för routing. Applikatione
   <Route path="/om-oss" element={<About />} />
 </Routes>
 ```
+
 ---
 
+## 🧪 Testning
 
-## Testning
-
-Projektet innehåller enhetstestning med hjälp av `Vitest` och `@testing-library/react`. 
-Vi testar att startsidan renderas korrekt, inklusive rubriken ”Alla husdjur”, och att data hämtas och visas. Sanity-klienten mockas för att möjliggöra isolerad testning. Syftet är att säkerställa att grundläggande rendering och dataladdning fungerar som förväntat.
-
-Testerna körs med kommandot:
+### 🔹 Enhetstester (Vitest)
 
 ```bash
 npm run test
 ```
-Ett grundläggande test är implementerat för att kontrollera att startsidan (`App.jsx`) renderar rubriken "Alla husdjur".
+
+Exempel:
 
 ```js
-import { render, screen } from '@testing-library/react';
-import { describe, it, expect } from 'vitest';
-import App from './App';
-
-describe('App', () => {
+import { render, screen } from "@testing-library/react";
+import { describe, it, expect } from "vitest";
+import App from "./App";
+describe("App", () => {
   it('visar rubriken "Alla husdjur"', () => {
     render(<App />);
-    const heading = screen.getByText(/Alla husdjur/i);
-    expect(heading).toBeInTheDocument();
+    expect(screen.getByText(/Alla husdjur/i)).toBeInTheDocument();
   });
 });
 ```
+
+### 🔹 End-to-End-tester (Cypress)
+
+```bash
+npx cypress run
+npx cypress open
+```
+
+Exempel:
+
+```js
+describe("PetForm", () => {
+  it("fyller i och skickar formuläret", () => {
+    cy.visit("/lagg-till");
+    cy.get('input[name="name"]').type("Fluffy");
+    cy.get("form").submit();
+    cy.on("window:alert", (str) => {
+      expect(str).to.equal("Husdjur inskickat!");
+    });
+  });
+});
+```
+
+För att även testa About och PetList, se till att du mockar API-respons eller har testdata i Sanity.
+
 ---
+
+## 🗂️ Sanity-schemas
+
+### about.js
+
+```js
+export default {
+  name: "about",
+  title: "Om oss",
+  type: "document",
+  fields: [
+    { name: "title", title: "Titel", type: "string" },
+    { name: "content", title: "Innehåll", type: "text" },
+  ],
+};
+```
+
+### pet.js
+
+```js
+export default {
+  name: "pet",
+  title: "Husdjur",
+  type: "document",
+  fields: [
+    { name: "name", title: "Namn", type: "string" },
+    { name: "species", title: "Art", type: "string" },
+    { name: "image", title: "Bild", type: "image", options: { hotspot: true } },
+    { name: "description", title: "Beskrivning", type: "text" },
+    { name: "livesWith", title: "Bor med", type: "string" },
+    {
+      name: "personality",
+      title: "Personlighet",
+      type: "array",
+      of: [{ type: "string" }],
+    },
+    {
+      name: "hobbies",
+      title: "Favoritsysslor",
+      type: "array",
+      of: [{ type: "string" }],
+    },
+    { name: "talent", title: "Talang", type: "string" },
+  ],
+};
+```
+
+---
+
+## ✅ Sammanfattning
+
+| Funktion     | Verktyg      |
+| ------------ | ------------ |
+| UI           | React        |
+| Routing      | React Router |
+| CMS          | Sanity       |
+| Enhetstester | Vitest       |
+| E2E-tester   | Cypress      |
+
+🔧 Om du stöter på problem, kontrollera att:
+
+- Sanity-studion kör på port 3333
+- Din frontend är igång
+- Du har testdata i Sanity (t.ex. minst ett dokument för `about` och `pet`)
+- Starta om Vite/Sanity vid behov
