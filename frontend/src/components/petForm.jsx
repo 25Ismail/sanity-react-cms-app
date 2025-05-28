@@ -1,3 +1,4 @@
+import '../style/PetForm.css';
 // Importerar Reacts useState-hook för att hantera formulärets tillstånd
 import { useState } from 'react'
 
