@@ -158,17 +158,14 @@ export default {
 ```
 
 ---
-📝 Om oss-sidan – React + useState
+### 📝 Om oss-sidan – React + useState
 Om oss-sidan (About.jsx) är en enkel och dynamisk informationssida som presenterar vad Husdjursgalleri är. Innehållet hämtas från Sanity via en query, och visas automatiskt på sidan tack vare Reacts useState och useEffect.
 
-Syfte:
+## Syfte:
 Att ge besökaren en tydlig introduktion till vad Husdjursgalleri handlar om – en gemenskap för alla djurälskare, med möjlighet att läsa och dela historier om sina husdjur.
 
-Så fungerar det:
+## Så fungerar det:
 
-jsx
-Kopiera
-Redigera
 const [aboutData, setAboutData] = useState(null);
 
 useEffect(() => {
@@ -177,23 +174,21 @@ useEffect(() => {
     .then((data) => setAboutData(data))
     .catch(console.error);
 }, []);
+
 useState skapar ett tillstånd (aboutData) där innehållet från Sanity lagras.
-
 useEffect körs när komponenten laddas, hämtar datan och uppdaterar tillståndet.
-
 När aboutData har ett värde, renderas innehållet direkt i gränssnittet.
 
-Exempel på rendering:
+## Exempel på rendering:
 
-jsx
-Kopiera
-Redigera
 {aboutData && (
   <section className="about">
     <h1>{aboutData.title}</h1>
     <p>{aboutData.description}</p>
   </section>
 )}
+
+
 🧠 Fördelar:
 Det här gör sidan lätt att uppdatera via Sanity – inga kodändringar krävs för att justera texten.
 
