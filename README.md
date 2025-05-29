@@ -189,7 +189,8 @@ När aboutData har ett värde, renderas innehållet direkt i gränssnittet.
 )}
 
 
-🧠 Fördelar:
+
+## 🧠 Fördelar:
 Det här gör sidan lätt att uppdatera via Sanity – inga kodändringar krävs för att justera texten.
 
 ## ✅ Sammanfattning
