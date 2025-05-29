@@ -179,7 +179,7 @@ useState skapar ett tillstånd (aboutData) där innehållet från Sanity lagras.
 useEffect körs när komponenten laddas, hämtar datan och uppdaterar tillståndet.
 När aboutData har ett värde, renderas innehållet direkt i gränssnittet.
 
-## Exempel på rendering:
+### Exempel på rendering:
 
 {aboutData && (
   <section className="about">
