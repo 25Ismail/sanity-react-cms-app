@@ -190,6 +190,9 @@ När aboutData har ett värde, renderas innehållet direkt i gränssnittet.
 
 ---
 
+
+
+
 # 🐶 Lägg till husdjur – PetForm-komponenten med useState
 🔹PetForm.jsx är det formulär där användaren kan lägga till ett nytt husdjur i galleriet. Formuläret använder Reacts useState-hook för att hantera innehållet i alla fält, samt skicka datan till Sanity när formuläret skickas in.
 
@@ -244,6 +247,65 @@ await client.create(doc)
 -Formuläret återställs automatiskt efter att husdjuret skickats in.
 
 -Dataformatering (t.ex. konvertering till arrayer) sker innan lagring i Sanity.
+
+---
+
+# 🐾 Visa husdjur – PetList-komponenten med useState och useEffect
+
+🔹`PetList.jsx` är komponenten som hämtar och visar alla husdjur från Sanity. Den använder Reacts `useState` för att lagra listan av husdjur och `useEffect` för att hämta datan när komponenten laddas.
+
+## Syfte:
+🔹Att visa ett dynamiskt galleri med alla husdjur som finns i databasen.
+
+## Så fungerar det:
+
+```js
+const [pets, setPets] = useState([]);
+
+useEffect(() => {
+  client.fetch(query).then((data) => setPets(data));
+}, []);
+```
+🔹Här skapas ett tillstånd `pets` som innehåller alla husdjur. När komponenten laddas hämtas datan från Sanity och lagras i `pets`.
+
+### Rendering av galleriet:
+
+```jsx
+<section className="pets-container">
+  <h2>Alla husdjur</h2>
+  <div className="pets-grid">
+    {pets.map((pet) => (
+      <div key={pet._id} className="pet-card">
+        {pet.imageUrl && (
+          <img src={pet.imageUrl} alt={pet.name} className="pet-image" />
+        )}
+        <div className="pet-info">
+          <h3>
+            {pet.name} ({pet.species})
+          </h3>
+          <p>
+            <strong>Beskrivning:</strong> {pet.description}
+          </p>
+          <p>
+            <strong>Bor med:</strong> {pet.livesWith}
+          </p>
+          <p>
+            <strong>Personlighet:</strong> {pet.personality?.join(", ")}
+          </p>
+          <p>
+            <strong>Favoritsysslor:</strong> {pet.hobbies?.join(", ")}
+          </p>
+          <p>
+            <strong>Talang:</strong> {pet.talent}
+          </p>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+```
+
+🔹Varje husdjur renderas som ett kort med bild och information, och all styling hanteras i `galleri.css`.
 
 ---
 
