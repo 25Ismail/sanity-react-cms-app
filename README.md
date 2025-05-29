@@ -188,10 +188,64 @@ När aboutData har ett värde, renderas innehållet direkt i gränssnittet.
   </section>
 )}
 
+---
+
+# 🐶 Lägg till husdjur – PetForm-komponenten med useState
+🔹PetForm.jsx är det formulär där användaren kan lägga till ett nytt husdjur i galleriet. Formuläret använder Reacts useState-hook för att hantera innehållet i alla fält, samt skicka datan till Sanity när formuläret skickas in.
 
 
+
+
+
+## Syfte:
+🔹Att möjliggöra användarinteraktion där man själv kan bidra till husdjursgalleriet genom att fylla i och skicka in information om sitt eget husdjur.
+
+
+
+
+
+## Så fungerar det:
+
+```js const [formData, setFormData] = useState({
+name: '',
+species: '',
+  description: '',
+  livesWith: '',
+  personality: '',
+  hobbies: '',
+  talent: ''
+})
+```
+🔹Här skapas ett tillståndsobjekt formData med alla fält i formuläret. Varje gång användaren skriver något i ett fält uppdateras tillståndet med hjälp av setFormData.
+
+```const handleChange = (e) => {
+  const { name, value } = e.target
+  setFormData(prev => ({ ...prev, [name]: value }))
+}
+```
+🔹Vid inskickning konverteras fält som personality och hobbies till arrayer innan datan skickas till Sanity:
+
+```const doc = {
+  _type: 'pet',
+  name: formData.name,
+  species: formData.species,
+  description: formData.description,
+  livesWith: formData.livesWith,
+  personality: formData.personality.split(',').map(s => s.trim()),
+  hobbies: formData.hobbies.split(',').map(s => s.trim()),
+  talent: formData.talent
+}
+
+await client.create(doc)
+```
 ## 🧠 Fördelar:
-Det här gör sidan lätt att uppdatera via Sanity – inga kodändringar krävs för att justera texten.
+-Alla formulärfält är kopplade till useState, vilket ger full kontroll över innehållet.
+
+-Formuläret återställs automatiskt efter att husdjuret skickats in.
+
+-Dataformatering (t.ex. konvertering till arrayer) sker innan lagring i Sanity.
+
+---
 
 ## ✅ Sammanfattning
 
