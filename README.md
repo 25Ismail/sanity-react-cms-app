@@ -13,7 +13,12 @@
 - **Testning:** Vitest (enhetstester) & Cypress (end-to-end)
 
 ---
+## 🌐 Se projektet live
 
+- **Länk till projektet:** [https://25ismail.github.io/sanity-react-cms-app/](https://25ismail.github.io/sanity-react-cms-app/)
+- **Notera:** Endast frontend visas. Full funktionalitet (t.ex. formulär och datalagring) kräver att Sanity Studio är igång lokalt.
+  
+---
 ## 📦 Installation & körning
 
 ### 1. Klona projektet
